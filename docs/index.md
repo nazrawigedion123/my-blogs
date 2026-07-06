@@ -1,17 +1,21 @@
-# Welcome to MkDocs
+# Nazrawi's Blogs
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Welcome to my technical blog.
 
-## Commands
+Start with the latest posts in the [blog](blog/index.md), or add standalone pages under `docs/pages/`.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## Writing
 
-## Project layout
+Create new blog posts in `docs/blog/posts/` using this front matter:
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+```yaml
+---
+title: "Post title"
+description: "Short summary for previews and search."
+date: YYYY-MM-DD
+authors:
+  - nazrawi
+---
+```
+
+Create other pages in `docs/pages/`, then add them to the `nav` section in `mkdocs.yml`.
