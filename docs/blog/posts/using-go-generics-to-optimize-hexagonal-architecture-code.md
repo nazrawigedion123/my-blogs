@@ -20,34 +20,64 @@ authors:
 
 Hexagonal Architecture (also known as Ports and Adapters) is a popular design pattern in Go for decoupling domain logic from infrastructure details such as databases, external APIs, and HTTP frameworks.
 
-??? info "Project Directory Structure (Click to expand)"
+??? info "Project Directory Structure"
 
     ```
- .
-├── cmd/main.go
-├── config/
-│   ├── config.yml
-│   └── sqlc.yml
-├── docker-compose.yaml
-├── go.mod
-├── go.sum
-├── internal/
-│   ├── constant/
-│   │   ├── constants.go
-│   │   └── db/
-│   │       ├── dbinterface/db_interface.go
-│   │       ├── generated/{db.go,models.go,querier.go,sample.sql.go}
-│   │       ├── queries/sample.sql
-│   │       └── schemas/{20260611084147_sample.down.sql,20260611084147_sample.up.sql}
-│   ├── glue/
-│   │   └── routing/routing.go
-│   ├── handler/
-│   │   ├── handler.go
-│   │   └── middleware/{cors.go,ginlogger.go,middleware.go,ratelimiter.go}
-│   ├── module/module.go
-│   └── storage/storage.go
-├── Makefile
-└── README.md
+    .
+    ├── cmd
+    │   └── main.go
+    ├── config
+    │   ├── config.yml
+    │   └── sqlc.yml
+    ├── docker-compose.yaml
+    ├── go.mod
+    ├── go.sum
+    ├── internal
+    │   ├── constant
+    │   │   ├── constants.go
+    │   │   ├── db
+    │   │   │   ├── dbinterface
+    │   │   │   │   └── db_interface.go
+    │   │   │   ├── generated
+    │   │   │   │   ├── db.go
+    │   │   │   │   ├── models.go
+    │   │   │   │   ├── querier.go
+    │   │   │   │   └── sample.sql.go
+    │   │   │   ├── queries
+    │   │   │   │   └── sample.sql
+    │   │   │   └── schemas
+    │   │   │       ├── 20260611084147_sample.down.sql
+    │   │   │       └── 20260611084147_sample.up.sql
+    │   │   └── model
+    │   │       ├── dto
+    │   │       │   └── sample.go
+    │   │       ├── errors
+    │   │       │   └── errors.go
+    │   │       └── response
+    │   │           └── response.go
+    │   ├── glue
+    │   │   ├── routing
+    │   │   │   └── routing.go
+    │   │   └── sampleRouting
+    │   │       └── sampleRouting.go
+    │   ├── handler
+    │   │   ├── handler.go
+    │   │   ├── middleware
+    │   │   │   ├── cors.go
+    │   │   │   └── ratelimiter.go
+    │   │   └── samplehandler
+    │   │       └── sample_handler.go
+    │   ├── module
+    │   │   ├── module.go
+    │   │   └── samplemodule
+    │   │       ├── sample_module.go
+    │   │       └── sample_module_bench_test.go
+    │   └── storage
+    │       ├── samplestorage
+    │       │   └── sample_storage.go
+    │       └── storage.go
+    ├── Makefile
+    └── README.md
     ```
 
 !!! info "Hexagonal Architecture Principle"
