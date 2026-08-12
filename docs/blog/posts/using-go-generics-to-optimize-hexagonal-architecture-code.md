@@ -24,29 +24,26 @@ Hexagonal Architecture (also known as Ports and Adapters) is a popular design pa
 
     ```
     .
-    ├── cmd
-    │   └── main.go
-    ├── internal
-    │   ├── glue
-    │   │   ├── routing
-    │   │   │   └── routing.go
-    │   │   └── sampleRouting
-    │   │       └── sampleRouting.go
-    │   ├── handler
-    │   │   ├── handler.go
-    │   │   └── samplehandler
-    │   │       └── sample_handler.go
-    │   ├── module
-    │   │   ├── module.go
-    │   │   └── samplemodule
-    │   │       ├── sample_module.go
-    │   │       └── sample_module_bench_test.go
-    │   └── storage
-    │       ├── samplestorage
-    │       │   └── sample_storage.go
-    │       └── storage.go
-    ├── Makefile
-    └── README.md
+    ├── main.go
+    └──internal
+        ├── glue
+        │   ├── routing
+        │   │   └── routing.go
+        │   └── sampleRouting
+        │       └── sampleRouting.go
+        ├── handler
+        │   ├── handler.go
+        │   └── samplehandler
+        │       └── sample_handler.go
+        ├── module
+        │   ├── module.go
+        │   └── samplemodule
+        │       ├── sample_module.go
+        │       └── sample_module_bench_test.go
+        └── storage
+            ├── samplestorage
+            │   └── sample_storage.go
+            └── storage.go
     ```
 
 !!! info "Hexagonal Architecture Principle"
