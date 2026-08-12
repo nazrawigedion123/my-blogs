@@ -33,6 +33,10 @@ plugins:
       blog_toc: true
       post_date_format: medium
       post_url_date_format: yyyy/MM/dd
+      archive: true
+      archive_name: Archives
+      categories: true
+      categories_name: Categories
 
 markdown_extensions:
   - admonition
@@ -50,7 +54,5 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Blog:
-      - blog/index.md
-  - Pages:
-      - About: pages/about.md
+  - Blog: blog/index.md
+  - About: pages/about.md

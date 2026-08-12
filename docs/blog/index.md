@@ -1,3 +1,5 @@
-# Blog
+# Engineering Blog
 
-Notes on software engineering, systems, and practical lessons from building things.
+Notes on software engineering, Go performance, architecture patterns, and systems design.
+
+---
