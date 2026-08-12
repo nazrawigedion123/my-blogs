@@ -33,15 +33,6 @@ Hexagonal Architecture (also known as Ports and Adapters) is a popular design pa
     ├── go.mod
     ├── go.sum
     ├── internal
-    │   ├── constant
-    │   │   ├── constants.go
-    │   │   └── model
-    │   │       ├── dto
-    │   │       │   └── sample.go
-    │   │       ├── errors
-    │   │       │   └── errors.go
-    │   │       └── response
-    │   │           └── response.go
     │   ├── glue
     │   │   ├── routing
     │   │   │   └── routing.go
