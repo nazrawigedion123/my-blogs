@@ -35,19 +35,6 @@ Hexagonal Architecture (also known as Ports and Adapters) is a popular design pa
     ├── internal
     │   ├── constant
     │   │   ├── constants.go
-    │   │   ├── db
-    │   │   │   ├── dbinterface
-    │   │   │   │   └── db_interface.go
-    │   │   │   ├── generated
-    │   │   │   │   ├── db.go
-    │   │   │   │   ├── models.go
-    │   │   │   │   ├── querier.go
-    │   │   │   │   └── sample.sql.go
-    │   │   │   ├── queries
-    │   │   │   │   └── sample.sql
-    │   │   │   └── schemas
-    │   │   │       ├── 20260611084147_sample.down.sql
-    │   │   │       └── 20260611084147_sample.up.sql
     │   │   └── model
     │   │       ├── dto
     │   │       │   └── sample.go
