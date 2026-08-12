@@ -26,12 +26,6 @@ Hexagonal Architecture (also known as Ports and Adapters) is a popular design pa
     .
     ├── cmd
     │   └── main.go
-    ├── config
-    │   ├── config.yml
-    │   └── sqlc.yml
-    ├── docker-compose.yaml
-    ├── go.mod
-    ├── go.sum
     ├── internal
     │   ├── glue
     │   │   ├── routing
@@ -40,9 +34,6 @@ Hexagonal Architecture (also known as Ports and Adapters) is a popular design pa
     │   │       └── sampleRouting.go
     │   ├── handler
     │   │   ├── handler.go
-    │   │   ├── middleware
-    │   │   │   ├── cors.go
-    │   │   │   └── ratelimiter.go
     │   │   └── samplehandler
     │   │       └── sample_handler.go
     │   ├── module
