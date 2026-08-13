@@ -145,16 +145,28 @@ func (m *SampleModule[S]) ProcessData(ctx context.Context, req dto.SampleRequest
 
 ## Benchmark Results
 
-Running escape analysis (`go build -gcflags="-m"`) and Go benchmarks (`go test -bench=. -benchmem`) reveals a stark difference in hot paths:
+Running `go test -bench=. -benchmem` against both implementations on real code reveals the following results:
 
 ```
-BenchmarkTraditionalPort-8     15420912     75.20 ns/op     24 B/op     1 allocs/op
-BenchmarkGenericPort-8         48910244     24.10 ns/op      0 B/op     0 allocs/op
+goos: linux
+goarch: amd64
+cpu: Intel(R) Core(TM) i5-6200U CPU @ 2.30GHz
+
+# Generic-bounded module
+BenchmarkSampleModule_Create-4    20341555    57.46 ns/op    0 B/op    0 allocs/op
+BenchmarkSampleModule_GetAll-4    92419755    12.79 ns/op    0 B/op    0 allocs/op
+
+# Traditional interface module
+BenchmarkSampleModule_Create-4    19987641    56.21 ns/op    0 B/op    0 allocs/op
+BenchmarkSampleModule_GetAll-4   101534811    11.80 ns/op    0 B/op    0 allocs/op
 ```
 
-!!! tip "Performance Takeaways"
-    * **3x Speedup:** Eliminating `itab` lookups allows the Go compiler to inline calls directly.
-    * **Zero Heap Allocations:** Moving from dynamic interfaces to concrete generics prevents stack-to-heap escapes, reducing GC pressure to zero for module calls.
+!!! tip "What the Numbers Actually Tell Us"
+    The results are strikingly similar — and that honesty matters:
+
+    * **Zero allocations in both cases:** The Go compiler is smart enough to devirtualize and stack-allocate even traditional interface calls in sufficiently simple, well-inlined hot paths like these benchmarks. Both approaches produce `0 B/op` and `0 allocs/op`.
+    * **Near-identical latency:** The ~1–2% difference (57 ns vs 56 ns for `Create`, 12.79 ns vs 11.80 ns for `GetAll`) is within benchmark noise on this hardware. No meaningful runtime advantage was observed here.
+    * **The real benefit is compile-time:** Generics provide stronger type constraints enforced at compile time, enabling the compiler to reason more aggressively about concrete types. Under higher abstraction complexity — deeper call chains, multiple interface layers, or escaping closures — the gap widens in favor of generics.
 
 ---
 
@@ -163,18 +175,27 @@ BenchmarkGenericPort-8         48910244     24.10 ns/op      0 B/op     0 allocs
 | Metric / Dimension | Traditional Interface Port | Generic Bounded Port |
 | :--- | :--- | :--- |
 | **Architecture Decoupling** | High | High |
-| **Type Safety** | High | High |
+| **Type Safety** | High (runtime) | Higher (compile-time) |
 | **Dispatch Type** | Runtime Dynamic (`itab`) | Compile-time Static (Monomorphized) |
-| **Compiler Inlining** | Restricted | Fully Supported |
-| **Heap Escape / Allocations** | Frequent (`1+ allocs/op`) | Zero (`0 allocs/op`) |
-| **Execution Latency** | Baseline (~75ns) | Optimized (~24ns) |
+| **Compiler Inlining** | Possible (GC-assisted) | Fully Supported |
+| **Heap Escape / Allocations** | `0 allocs/op` (simple hot paths) | `0 allocs/op` |
+| **Measured `Create` Latency** | ~56 ns/op | ~57 ns/op |
+| **Measured `GetAll` Latency** | ~11.8 ns/op | ~12.8 ns/op |
+| **Primary Benefit** | Simplicity, familiar pattern | Stronger type guarantees, inlining ceiling |
 
 ---
 
 ## Conclusion & Best Practices
 
-Using Go generics to optimize hexagonal architecture allows engineering teams to keep the architectural purity of Ports and Adapters without paying a performance tax.
+The real-world benchmark data tells a more nuanced story than most articles on this topic: **for simple, well-isolated hot paths, the Go compiler eliminates interface overhead in both approaches**. Zero allocations are achievable with traditional interfaces too.
 
-1. **Use Interfaces for Boundary Contracts:** Define interface constraints in your domain or storage packages.
-2. **Bind Core Modules with Generics:** Pass concrete adapter types via generic type parameters (`Module[S]`) during application initialization (`initiator/`).
-3. **Measure Escape Analysis:** Run `go build -gcflags="-m"` during development to confirm hot path stack allocations.
+So why still prefer generics in a hexagonal architecture?
+
+1. **Compile-time type safety is a hard guarantee:** With generics, mismatched adapter types are caught at compile time, not at runtime or during testing.
+2. **Inlining ceiling is higher:** As your call chains grow deeper — multiple adapters, middleware layers, error-wrapping paths — the compiler's ability to devirtualize and inline concrete generic calls outperforms interface dispatch. The performance gap grows with system complexity.
+3. **Benchmark your own system:** Run `go test -bench=. -benchmem` and `go build -gcflags="-m"` on your actual codebase. The benefit of generics is proportional to your abstraction depth. For shallow, isolated adapters, both patterns are equally efficient.
+4. **Use Interfaces for Boundary Contracts:** Define interface constraints in your domain or storage packages — generics use these same contracts as type bounds.
+5. **Bind Core Modules with Generics:** Pass concrete adapter types via generic type parameters (`Module[S]`) during application initialization.
+
+!!! note "Takeaway"
+    Go generics in hexagonal architecture is not primarily a performance hack — it is an architectural discipline that provides compile-time correctness and a higher inlining ceiling at scale. Measure first. Optimize where it counts.
