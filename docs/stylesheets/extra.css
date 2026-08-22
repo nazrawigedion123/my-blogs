@@ -1,0 +1,217 @@
+/* =========================================================
+   Nazrawi's Blog — Custom Theme
+   Dark-first, clean & elegant
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Design Tokens ─────────────────────────────────────── */
+
+/* Dark (slate) palette */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #7c9ef8;
+  --md-primary-fg-color--light: #a5b9fb;
+  --md-primary-fg-color--dark:  #5b80f5;
+  --md-accent-fg-color:         #67e8f9;
+
+  --md-default-bg-color:        #0d1117;
+  --md-default-fg-color:        #e6edf3;
+  --md-default-fg-color--light: #8b949e;
+  --md-default-fg-color--lighter: #484f58;
+
+  /* Surface layers */
+  --surface-1:                  #161b22;
+  --surface-2:                  #21262d;
+  --surface-3:                  #30363d;
+
+  /* Code blocks */
+  --md-code-bg-color:           #161b22;
+  --md-code-fg-color:           #e6edf3;
+  --md-code-hl-color:           rgba(124, 158, 248, 0.15);
+
+  /* Admonitions */
+  --md-admonition-bg-color:     var(--surface-1);
+}
+
+/* Light palette */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        #3b5bdb;
+  --md-primary-fg-color--light: #6681e3;
+  --md-primary-fg-color--dark:  #2b44b8;
+  --md-accent-fg-color:         #0891b2;
+
+  --md-default-bg-color:        #f8f9fa;
+  --md-default-fg-color:        #1a1d23;
+  --md-default-fg-color--light: #6b7280;
+
+  --surface-1:                  #ffffff;
+  --surface-2:                  #f1f3f5;
+  --surface-3:                  #e9ecef;
+
+  --md-code-bg-color:           #f4f5f7;
+  --md-code-fg-color:           #1a1d23;
+  --md-admonition-bg-color:     #ffffff;
+}
+
+/* ── Typography ────────────────────────────────────────── */
+
+:root {
+  --md-text-font:      "Inter", system-ui, sans-serif;
+  --md-code-font:      "JetBrains Mono", "Fira Code", monospace;
+}
+
+.md-typeset {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+.md-typeset h1 {
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.md-typeset h2 {
+  font-weight: 600;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+  margin-top: 2.5rem;
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* ── Navigation & Header ────────────────────────────────── */
+
+.md-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--surface-3);
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  background: rgba(13, 17, 23, 0.85);
+}
+
+[data-md-color-scheme="default"] .md-header {
+  background: rgba(248, 249, 250, 0.85);
+}
+
+.md-nav__link {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+/* ── Content Area ───────────────────────────────────────── */
+
+.md-content__inner {
+  max-width: 800px;
+}
+
+/* ── Code Blocks ────────────────────────────────────────── */
+
+.md-typeset pre > code {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  border-radius: 8px;
+}
+
+.md-typeset code {
+  font-size: 0.85em;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+
+[data-md-color-scheme="slate"] .md-typeset code {
+  background: var(--surface-2);
+  color: #a5b9fb;
+  border: 1px solid var(--surface-3);
+}
+
+[data-md-color-scheme="default"] .md-typeset code {
+  background: var(--surface-2);
+  color: #3b5bdb;
+  border: 1px solid var(--surface-3);
+}
+
+/* ── Admonitions ────────────────────────────────────────── */
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 8px;
+  border-left-width: 3px;
+  box-shadow: none;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition,
+[data-md-color-scheme="slate"] .md-typeset details {
+  background: var(--surface-1);
+  border-color: var(--md-primary-fg-color);
+}
+
+/* ── Tables ─────────────────────────────────────────────── */
+
+.md-typeset table:not([class]) {
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--surface-3);
+  font-size: 0.875rem;
+}
+
+.md-typeset table:not([class]) th {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background: var(--surface-2);
+  color: var(--md-default-fg-color--light);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) td {
+  border-top: 1px solid var(--surface-3);
+}
+
+/* ── Blog Post Cards ────────────────────────────────────── */
+
+.md-typeset .blog-post-excerpt {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+[data-md-color-scheme="slate"] .md-post {
+  border-bottom: 1px solid var(--surface-3);
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+
+.md-footer {
+  font-size: 0.8rem;
+}
+
+[data-md-color-scheme="slate"] .md-footer {
+  background: var(--surface-1);
+  border-top: 1px solid var(--surface-3);
+}
+
+/* ── Horizontal Rule ────────────────────────────────────── */
+
+.md-typeset hr {
+  border: none;
+  border-top: 1px solid var(--surface-3);
+  margin: 2.5rem 0;
+}
+
+/* ── Smooth transitions ─────────────────────────────────── */
+
+*, *::before, *::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+}
