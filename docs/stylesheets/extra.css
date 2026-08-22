@@ -99,6 +99,18 @@
 
 [data-md-color-scheme="default"] .md-header {
   background: rgba(248, 249, 250, 0.85);
+  color: #1a1d23;
+}
+
+/* Ensure header icons and buttons are visible in light mode */
+[data-md-color-scheme="default"] .md-header__button,
+[data-md-color-scheme="default"] .md-header__topic,
+[data-md-color-scheme="default"] .md-header__title {
+  color: #1a1d23;
+}
+
+[data-md-color-scheme="default"] .md-header__button:hover {
+  opacity: 0.7;
 }
 
 .md-nav__link {
